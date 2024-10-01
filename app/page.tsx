@@ -1,9 +1,14 @@
-import Image from "next/image";
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      Welcome to Our E-Commerce Website
+    <div className="text-center">
+      <h1 className="text-4xl font-bold text-pink-600">
+        Welcome to Our E-Commerce Store
+      </h1>
+      <p className="mt-4 text-pink-400">
+        <a href="/products" className="underline hover:text-pink-500">
+          Browse our Products
+        </a>
+      </p>
     </div>
   );
 }

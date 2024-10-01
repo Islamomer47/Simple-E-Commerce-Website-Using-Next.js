@@ -1,4 +1,4 @@
-// File: C:\Users\Orange\Desktop\Simple-E-Commerce-Website-Using-Next.js\commerce\app\layout.tsx
+// File: C:\Users\Orange\Desktop\Simple-E-Commerce-Website-Using-Next.js\app\layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

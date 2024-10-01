@@ -1,37 +1,30 @@
-"use client"; // Mark this as a Client Component
-
+import { getProductById, getProducts } from "@/lib/api";
 import { notFound } from "next/navigation";
-import { useParams } from "next/navigation";
+import Cart from "@/components/Cart";
 
-type Product = {
-  id: number;
-  name: string;
-  price: string;
-  description: string;
-};
+export const revalidate = 60; //isr
 
-const products: Product[] = [
-  { id: 1, name: "Product 1", price: "$10", description: "This is Product 1" },
-  { id: 2, name: "Product 2", price: "$20", description: "This is Product 2" },
-  { id: 3, name: "Product 3", price: "$30", description: "This is Product 3" },
-];
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map((product: any) => ({ id: product.id.toString() }));
+}
 
-export default function ProductDetailsPage() {
-  const params = useParams();
-  const { id } = params;
-
-  const product = products.find((p) => p.id === parseInt(id as string));
+const ProductDetailsPage = async ({ params }: { params: { id: string } }) => {
+  const product = await getProductById(params.id);
 
   if (!product) {
-    notFound(); // Return a 404 if the product isn't found
+    return notFound();
   }
 
   return (
-    <div>
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>Price: {product.price}</p>
-      <button>Add to Cart</button>
+    <div className="p-8">
+      <h1 className="text-4xl font-bold text-pink-600">{product.title}</h1>
+      <p className="mt-2 text-pink-500">Price: ${product.price}</p>
+      <p className="mt-4 text-pink-400">{product.description}</p>
+
+      <Cart product={product} />
     </div>
   );
-}
+};
+
+export default ProductDetailsPage;
